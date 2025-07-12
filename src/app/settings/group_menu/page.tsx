@@ -1,5 +1,3 @@
-// src/app/settings/group_menu/page.tsx
-
 import Navbar from "../../../components/Navbar";
 import GroupMenuSection from "@/components/GroupMenuSection";
 
