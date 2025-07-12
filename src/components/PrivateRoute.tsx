@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 
 export default function PrivateRoute({
@@ -9,17 +9,29 @@ export default function PrivateRoute({
 }: {
   children: React.ReactNode;
 }) {
-  const { user } = useAuth();
+  const { user, isLoading } = useAuth();
   const router = useRouter();
+  const pathname = usePathname();
 
   useEffect(() => {
-    if (!user) {
+    const isLoginPage = pathname === "/login";
+
+    if (!isLoading && !user && !isLoginPage) {
       router.push("/login");
     }
-  }, [user, router]);
 
-  if (!user) {
-    return null;
+    // Jika sudah login dan akses login page, redirect ke home
+    if (!isLoading && user && isLoginPage) {
+      router.push("/home");
+    }
+  }, [user, isLoading, router, pathname]);
+
+  if (isLoading) {
+    return (
+      <div className="h-screen flex items-center justify-center">
+        <p className="text-gray-500">Memuat...</p>
+      </div>
+    );
   }
 
   return <>{children}</>;

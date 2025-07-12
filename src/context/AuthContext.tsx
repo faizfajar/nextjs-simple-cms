@@ -1,3 +1,4 @@
+// src/context/AuthContext.tsx
 "use client";
 
 import {
@@ -15,6 +16,7 @@ interface User {
 
 interface AuthContextType {
   user: User | null;
+  isLoading: boolean;
   login: (username: string, password: string) => boolean;
   logout: () => void;
 }
@@ -23,14 +25,15 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
 
-  // Cek apakah user tersimpan di localStorage saat pertama load
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
     if (storedUser) {
       setUser(JSON.parse(storedUser));
     }
+    setIsLoading(false);
   }, []);
 
   const login = (username: string, password: string): boolean => {
@@ -51,13 +54,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
 
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider value={{ user, login, logout, isLoading }}>
       {children}
     </AuthContext.Provider>
   );
 }
 
-// Custom hook untuk akses AuthContext
 export function useAuth() {
   const context = useContext(AuthContext);
   if (!context) {
