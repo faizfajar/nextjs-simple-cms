@@ -1,36 +1,77 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 📋 Next.js Simple CMS
 
-## Getting Started
+CMS sederhana berbasis Next.js, dirancang untuk mengelola daftar **Menu** dan **Group Menu** secara lokal menggunakan `localStorage`.
 
-First, run the development server:
+## ✨ Fitur
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+* ✅ Autentikasi (dummy login)
+* 📁 Manajemen **Group Menu**
+* 📄 Manajemen **Menu**
+* 🗃 Data disimpan di `localStorage`
+* ⚡ UI responsive & clean dengan TailwindCSS
+
+## 🧱 Teknologi
+
+* [Next.js App Router](https://nextjs.org/docs/app)
+* [TypeScript](https://www.typescriptlang.org/)
+* [TailwindCSS](https://tailwindcss.com/)
+* `localStorage` untuk penyimpanan data sementara
+
+## 🚀 Struktur Folder
+
+```
+src/
+├── app/
+│   ├── login/                → Halaman Login
+│   ├── home/                 → Dashboard setelah login
+│   └── settings/
+│       ├── menu/             → Manajemen Menu
+│       └── group_menu/       → Manajemen Group Menu
+├── components/               → Komponen UI (Form, Table, Layout, dll)
+├── context/                  → Context (AuthContext, MenuContext)
+└── styles/                   → Global CSS
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🧪 Menjalankan Project
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. **Clone repo ini**:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+   ```bash
+   git clone https://github.com/faizfajar/nextjs-simple-cms.git
+   cd nextjs-simple-cms
+   ```
 
-## Learn More
+2. **Install dependency**:
 
-To learn more about Next.js, take a look at the following resources:
+   ```bash
+   npm install
+   ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+3. **Jalankan lokal**:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+   ```bash
+   npm run dev
+   ```
 
-## Deploy on Vercel
+4. **Login dummy**:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+   * Username: `admin`
+   * Password: `admin123`
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 📃 Catatan
+
+* Tidak menggunakan database — semua data hilang jika cache browser dibersihkan.
+
+## 📚 Rencana Pengembangan
+
+* [ ] Export/import data sebagai JSON
+* [ ] Tambah pagination & pencarian
+* [ ] Tambah role/permission
+
+## 👨‍💼 Author
+
+* [@faizfajar](https://github.com/faizfajar)
+
+---
+
+> Built with ❤️ using Next.js & Tailwind.
