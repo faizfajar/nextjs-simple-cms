@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 interface GroupMenu {
   id: number;
@@ -18,14 +18,6 @@ export default function GroupMenuForm({
 }: GroupMenuFormProps) {
   const [name, setName] = useState("");
   const [error, setError] = useState("");
-  const [existing, setExisting] = useState<GroupMenu[]>([]);
-
-  useEffect(() => {
-    const stored = localStorage.getItem("groupMenus");
-    if (stored) {
-      setExisting(JSON.parse(stored));
-    }
-  }, []);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -36,20 +28,7 @@ export default function GroupMenuForm({
       return;
     }
 
-    const isDuplicate = existing.some(
-      (g) => g.name.toLowerCase() === trimmed.toLowerCase()
-    );
-    if (isDuplicate) {
-      setError("Nama sudah ada.");
-      return;
-    }
-
-    const newGroupMenu = { id: Date.now(), name: trimmed };
-    const updated = [...existing, newGroupMenu];
-    localStorage.setItem("groupMenus", JSON.stringify(updated));
-
-    onAdd(newGroupMenu);
-    setShowForm(false);
+    onAdd({ id: Date.now(), name: trimmed });
     setName("");
     setError("");
   };
@@ -83,6 +62,13 @@ export default function GroupMenuForm({
           className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
         >
           Simpan
+        </button>
+        <button
+          type="button"
+          onClick={() => setShowForm(false)}
+          className="px-4 py-2 border border-gray-300 rounded hover:bg-gray-100 ml-2"
+        >
+          Batal
         </button>
       </div>
     </form>
